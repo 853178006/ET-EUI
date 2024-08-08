@@ -15,25 +15,26 @@ namespace ET.Client
             {
                 throw new Exception($"get router fail: {netComponent.Root().Id} {address}");
             }
-            
+
             Log.Info($"get router: {recvLocalConn} {routerAddress}");
 
             Session routerSession = netComponent.Create(routerAddress, address, recvLocalConn);
             routerSession.AddComponent<PingComponent>();
             routerSession.AddComponent<RouterCheckComponent>();
-            
+
             return routerSession;
         }
-        
+
+        // 随机获取一个软路由地址
         public static async ETTask<(uint, IPEndPoint)> GetRouterAddress(this NetComponent netComponent, IPEndPoint address, uint localConn, uint remoteConn)
         {
             Log.Info($"start get router address: {netComponent.Root().Id} {address} {localConn} {remoteConn}");
             //return (RandomHelper.RandUInt32(), address);
             RouterAddressComponent routerAddressComponent = netComponent.Root().GetComponent<RouterAddressComponent>();
             IPEndPoint routerInfo = routerAddressComponent.GetAddress();
-            
+
             uint recvLocalConn = await netComponent.Connect(routerInfo, address, localConn, remoteConn);
-            
+
             Log.Info($"finish get router address: {netComponent.Root().Id} {address} {localConn} {remoteConn} {recvLocalConn} {routerInfo}");
             return (recvLocalConn, routerInfo);
         }
@@ -46,7 +47,7 @@ namespace ET.Client
             // 注意，session也以localConn作为id，所以这里不能用localConn作为id
             long id = (long)(((ulong)localConn << 32) | remoteConn);
             using RouterConnector routerConnector = netComponent.AddChildWithId<RouterConnector>(id);
-            
+
             int count = 20;
             byte[] sendCache = new byte[512];
 
@@ -79,7 +80,7 @@ namespace ET.Client
                 }
 
                 await timerComponent.WaitFrameAsync();
-                
+
                 if (routerConnector.Flag == 0)
                 {
                     continue;

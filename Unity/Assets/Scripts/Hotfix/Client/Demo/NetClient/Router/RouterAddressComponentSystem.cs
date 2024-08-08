@@ -15,7 +15,7 @@ namespace ET.Client
             self.RouterManagerHost = address;
             self.RouterManagerPort = port;
         }
-        
+
         public static async ETTask Init(this RouterAddressComponent self)
         {
             self.RouterManagerIPAddress = NetworkHelper.GetHostAddress(self.RouterManagerHost);
@@ -31,13 +31,13 @@ namespace ET.Client
             HttpGetRouterResponse httpGetRouterResponse = MongoHelper.FromJson<HttpGetRouterResponse>(routerInfo);
             self.Info = httpGetRouterResponse;
             Log.Debug($"start get router info finish: {MongoHelper.ToJson(httpGetRouterResponse)}");
-            
+
             // 打乱顺序
             RandomGenerator.BreakRank(self.Info.Routers);
-            
+
             self.WaitTenMinGetAllRouter().Coroutine();
         }
-        
+
         // 等10分钟再获取一次
         public static async ETTask WaitTenMinGetAllRouter(this RouterAddressComponent self)
         {
@@ -61,12 +61,12 @@ namespace ET.Client
             string[] ss = address.Split(':');
             IPAddress ipAddress = IPAddress.Parse(ss[0]);
             if (self.RouterManagerIPAddress.AddressFamily == AddressFamily.InterNetworkV6)
-            { 
+            {
                 ipAddress = ipAddress.MapToIPv6();
             }
             return new IPEndPoint(ipAddress, int.Parse(ss[1]));
         }
-        
+
         public static IPEndPoint GetRealmAddress(this RouterAddressComponent self, string account)
         {
             int v = account.Mode(self.Info.Realms.Count);
@@ -74,7 +74,7 @@ namespace ET.Client
             string[] ss = address.Split(':');
             IPAddress ipAddress = IPAddress.Parse(ss[0]);
             //if (self.IPAddress.AddressFamily == AddressFamily.InterNetworkV6)
-            //{ 
+            //{
             //    ipAddress = ipAddress.MapToIPv6();
             //}
             return new IPEndPoint(ipAddress, int.Parse(ss[1]));

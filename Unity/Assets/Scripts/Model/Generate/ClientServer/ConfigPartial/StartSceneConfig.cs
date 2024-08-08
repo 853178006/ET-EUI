@@ -7,28 +7,30 @@ namespace ET
     public partial class StartSceneConfigCategory
     {
         public MultiMap<int, StartSceneConfig> Gates = new();
-        
+
         public MultiMap<int, StartSceneConfig> ProcessScenes = new();
-        
+
         public Dictionary<long, Dictionary<string, StartSceneConfig>> ClientScenesByName = new();
 
         public StartSceneConfig LocationConfig;
 
         public List<StartSceneConfig> Realms = new();
-        
+
         public List<StartSceneConfig> Routers = new();
-        
+
         public List<StartSceneConfig> Maps = new();
 
         public StartSceneConfig Match;
-        
+
         public StartSceneConfig Benchmark;
-        
+
+        public StartSceneConfig LoginCenter;
+
         public List<StartSceneConfig> GetByProcess(int process)
         {
             return this.ProcessScenes[process];
         }
-        
+
         public StartSceneConfig GetBySceneName(int zone, string name)
         {
             return this.ClientScenesByName[zone][name];
@@ -39,13 +41,13 @@ namespace ET
             foreach (StartSceneConfig startSceneConfig in this.GetAll().Values)
             {
                 this.ProcessScenes.Add(startSceneConfig.Process, startSceneConfig);
-                
+
                 if (!this.ClientScenesByName.ContainsKey(startSceneConfig.Zone))
                 {
                     this.ClientScenesByName.Add(startSceneConfig.Zone, new Dictionary<string, StartSceneConfig>());
                 }
                 this.ClientScenesByName[startSceneConfig.Zone].Add(startSceneConfig.Name, startSceneConfig);
-                
+
                 switch (startSceneConfig.Type)
                 {
                     case SceneType.Realm:
@@ -69,15 +71,18 @@ namespace ET
                     case SceneType.BenchmarkServer:
                         this.Benchmark = startSceneConfig;
                         break;
+                    case SceneType.LoginCenter:
+                        this.LoginCenter = startSceneConfig;
+                        break;
                 }
             }
         }
     }
-    
+
     public partial class StartSceneConfig
     {
         public ActorId ActorId;
-        
+
         public SceneType Type;
 
         public StartProcessConfig StartProcessConfig
@@ -87,7 +92,7 @@ namespace ET
                 return StartProcessConfigCategory.Instance.Get(this.Process);
             }
         }
-        
+
         public StartZoneConfig StartZoneConfig
         {
             get
