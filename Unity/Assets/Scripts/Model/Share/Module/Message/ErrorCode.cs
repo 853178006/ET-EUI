@@ -20,5 +20,6 @@ namespace ET
         public const int ERR_PasswordFormatError = 200004;
         public const int ERR_AccountInBlackList = 200005;
         public const int ERR_PasswordError = 200006;
+        public const int ERR_TokenError = 200007;
     }
 }

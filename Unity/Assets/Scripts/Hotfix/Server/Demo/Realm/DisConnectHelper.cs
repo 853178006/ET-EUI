@@ -24,6 +24,7 @@ namespace ET.Server
 
         public static async ETTask KickPlayerNoLock(Player player)
         {
+            await ETTask.CompletedTask;
         }
     }
 }

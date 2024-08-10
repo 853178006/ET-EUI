@@ -88,8 +88,24 @@ namespace ET.Server
                     if (loginAccountResponse.Error!=ErrorCode.ERR_Success)
                     {
                         response.Error = loginAccountResponse.Error;
-
+                        session?.DisConnect().Coroutine();
+                        account?.Dispose();
+                        return;
                     }
+
+                    Session otherSession = session.Root().GetComponent<AccountSessionsComponent>().Get(request.AccountName);
+
+                    otherSession?.Send(A2C_DisConnect.Create());
+                    otherSession?.DisConnect().Coroutine();
+                    session.Root().GetComponent<AccountSessionsComponent>().Add(request.AccountName, session);
+                    session.AddComponent<AccountCheckOutTimeComponent, string>(request.AccountName);
+
+                    string token = TimeInfo.Instance.ServerNow().ToString() + RandomGenerator.RandomNumber(int.MinValue, int.MaxValue).ToString();
+                    session.Root().GetComponent<TokenComponent>().Remove(request.AccountName);
+                    session.Root().GetComponent<TokenComponent>().Add(request.AccountName, token);
+
+                    response.Token = token;
+                    account?.Dispose();
                 }
             }
         }

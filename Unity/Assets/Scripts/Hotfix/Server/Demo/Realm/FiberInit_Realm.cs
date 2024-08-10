@@ -19,6 +19,10 @@ namespace ET.Server
             //挂载DB管理组件
             root.AddComponent<DBManagerComponent>();
 
+            root.AddComponent<AccountSessionsComponent>();
+            root.AddComponent<TokenComponent>();
+            root.AddComponent<ServerInfoManagerComponent>();
+
             await ETTask.CompletedTask;
         }
     }
