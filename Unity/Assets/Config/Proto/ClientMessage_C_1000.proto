@@ -20,3 +20,17 @@ message NetClient2Main_Login // IResponse
 	int64 PlayerId = 4;
 	string Token = 5;
 }
+
+// ResponseType NetClient2Main_EnterGame
+message Main2NetClient_EnterGame // IRequest
+{
+	int32 RpcId = 1;
+	int32 OwnerFiberId = 2;
+}
+
+message NetClient2Main_EnterGame // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}

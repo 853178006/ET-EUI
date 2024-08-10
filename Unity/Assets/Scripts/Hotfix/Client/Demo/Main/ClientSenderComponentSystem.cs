@@ -49,6 +49,15 @@ namespace ET.Client
             return response;
         }
 
+        public static async ETTask<NetClient2Main_EnterGame> EnterGameAsync(this ClientSenderComponent self, string account, long key, long roleId,
+        string address)
+        {
+            Main2NetClient_EnterGame main2NetClientEnterGame = Main2NetClient_EnterGame.Create();
+            //TODO:发送数据
+            NetClient2Main_EnterGame response=await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId,main2NetClientEnterGame) as NetClient2Main_EnterGame;
+            return response;
+        }
+
         public static void Send(this ClientSenderComponent self, IMessage message)
         {
             A2NetClient_Message a2NetClientMessage = A2NetClient_Message.Create();

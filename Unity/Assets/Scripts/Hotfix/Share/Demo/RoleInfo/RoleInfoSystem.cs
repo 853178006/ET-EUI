@@ -2,7 +2,7 @@ namespace ET
 {
     [EntitySystemOf(typeof(RoleInfo))]
     [FriendOfAttribute(typeof(ET.RoleInfo))]
-    public static class RoleInfoSystem
+    public static partial class RoleInfoSystem
     {
         [EntitySystem]
         private static void Awake(this ET.RoleInfo self)

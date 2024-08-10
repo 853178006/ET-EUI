@@ -313,3 +313,23 @@ message R2C_GetRoles // ISessionResponse
 	
 	repeated RoleInfoProto RoleInfoProtoList = 4;
 }
+
+// ResponseType R2C_CreateRole
+message C2R_CreateRole // ISessionRequest
+{
+	int32 RpcId = 90;
+	
+	string Token = 1;
+	string Account = 2;
+	string Name = 3;
+	int32 ServerId = 4;
+}
+
+message R2C_CreateRole // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	
+	RoleInfoProto RoleInfoProto = 4;
+}

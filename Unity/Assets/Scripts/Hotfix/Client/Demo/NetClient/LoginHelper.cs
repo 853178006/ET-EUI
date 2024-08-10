@@ -52,8 +52,27 @@ namespace ET.Client
             if (r2CGetRoles.RoleInfoProtoList.Count<=0)
             {
                 //无角色信息，创建角色信息
+                C2R_CreateRole c2RCreateRole = C2R_CreateRole.Create();
+                c2RCreateRole.Token = token;
+                c2RCreateRole.Account = account;
+                c2RCreateRole.ServerId = serverInfoProto.Id;
+                c2RCreateRole.Name = account;
 
+                R2C_CreateRole r2CCreateRole=await clientSenderComponent.Call(c2RCreateRole) as R2C_CreateRole;
+
+                if (r2CCreateRole.Error!=ErrorCode.ERR_Success)
+                {
+                    Log.Error($"创建区服角色失败");
+                    return;
+                }
+
+                roleInfoProto = r2CCreateRole.RoleInfoProto;
             }
+            else
+            {
+                roleInfoProto = r2CGetRoles.RoleInfoProtoList[0];
+            }
+
 
             await EventSystem.Instance.PublishAsync(root, new LoginFinish());
         }
