@@ -24,12 +24,11 @@ namespace ET.Client
             //Realm网关服务器地址
             IPEndPoint realmAddress = routerAddressComponent.GetRealmAddress(account);
 
-            R2C_LoginAccount r2CLoginAccount;
             Session session = await netComponent.CreateRouterSession(realmAddress, account, password);
-            C2R_LoginAccount c2RLogin = C2R_LoginAccount.Create();
-            c2RLogin.AccountName = account;
-            c2RLogin.Password = password;
-            r2CLoginAccount = (R2C_LoginAccount)await session.Call(c2RLogin);
+            C2R_LoginAccount c2RLoginAccount = C2R_LoginAccount.Create();
+            c2RLoginAccount.AccountName = account;
+            c2RLoginAccount.Password = password;
+            R2C_LoginAccount r2CLoginAccount = (R2C_LoginAccount)await session.Call(c2RLoginAccount);
 
             if (r2CLoginAccount.Error==ErrorCode.ERR_Success)
             {

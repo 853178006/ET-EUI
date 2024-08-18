@@ -14,7 +14,9 @@ namespace ET
         public const int LoadUIBaseWindows = 8;
 
         public const int LoginAccount = 11; //账号登录
-        public const int CreateRole = 12; //账号登录
+        public const int CreateRole = 12; //创建角色
+        public const int LoginCenterLock = 13; //登录中心服
+        public const int LoginGate = 14; //登录Gate
 
         public const int Max = 100; // 这个必须最大
     }

@@ -333,3 +333,44 @@ message R2C_CreateRole // ISessionResponse
 	
 	RoleInfoProto RoleInfoProto = 4;
 }
+
+// ResponseType R2C_DeleteRole
+message C2R_DeleteRole // ISessionRequest
+{
+	int32 RpcId = 90;
+	
+	string Token = 1;
+	string Account = 2;
+	int64 RoleInfoId = 3;
+	int32 ServerId = 4;
+}
+
+message R2C_DeleteRole // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	
+	int64 DeleteRoleInfoid = 4;
+}
+
+// ResponseType R2C_GetRealmKey
+message C2R_GetRealmKey // ISessionRequest
+{
+	int32 RpcId = 90;
+	
+	string Token = 1;
+	string Account = 2;
+	int32 ServerId = 3;
+}
+
+message R2C_GetRealmKey // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	
+	string Address = 4;
+	int64 Key = 5;
+	int64 GateId = 6;
+}

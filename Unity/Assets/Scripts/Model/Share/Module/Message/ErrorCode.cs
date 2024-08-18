@@ -21,5 +21,8 @@ namespace ET
         public const int ERR_AccountInBlackList = 200005;
         public const int ERR_PasswordError = 200006;
         public const int ERR_TokenError = 200007;
+        public const int ERR_RoleNameIsNull = 200008;
+        public const int ERR_RoleNameSame = 200009;
+        public const int ERR_RoleNotExist = 200010;
     }
 }
