@@ -24,8 +24,11 @@ message NetClient2Main_Login // IResponse
 // ResponseType NetClient2Main_EnterGame
 message Main2NetClient_EnterGame // IRequest
 {
-	int32 RpcId = 1;
-	int32 OwnerFiberId = 2;
+	int32 RpcId = 90;
+	int64 RealmKey = 1;
+	string Account = 2;
+	int64 RoleId = 3;
+	string GateAddress = 4;
 }
 
 message NetClient2Main_EnterGame // IResponse
@@ -33,4 +36,6 @@ message NetClient2Main_EnterGame // IResponse
 	int32 RpcId = 1;
 	int32 Error = 2;
 	string Message = 3;
+	
+	int64 PlayerId = 4;
 }

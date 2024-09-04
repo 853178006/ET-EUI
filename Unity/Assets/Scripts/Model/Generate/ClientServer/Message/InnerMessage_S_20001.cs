@@ -861,13 +861,13 @@ namespace ET
     }
 
     [MemoryPackable]
-    [Message(InnerMessage.L2R_DisConnectGateUnit)]
-    [ResponseType(nameof(R2L_DisConnectGateUnit))]
-    public partial class L2R_DisConnectGateUnit : MessageObject, IRequest
+    [Message(InnerMessage.L2G_DisConnectGateUnit)]
+    [ResponseType(nameof(G2L_DisConnectGateUnit))]
+    public partial class L2G_DisConnectGateUnit : MessageObject, IRequest
     {
-        public static L2R_DisConnectGateUnit Create(bool isFromPool = false)
+        public static L2G_DisConnectGateUnit Create(bool isFromPool = false)
         {
-            return ObjectPool.Instance.Fetch(typeof(L2R_DisConnectGateUnit), isFromPool) as L2R_DisConnectGateUnit;
+            return ObjectPool.Instance.Fetch(typeof(L2G_DisConnectGateUnit), isFromPool) as L2G_DisConnectGateUnit;
         }
 
         [MemoryPackOrder(0)]
@@ -891,12 +891,12 @@ namespace ET
     }
 
     [MemoryPackable]
-    [Message(InnerMessage.R2L_DisConnectGateUnit)]
-    public partial class R2L_DisConnectGateUnit : MessageObject, IResponse
+    [Message(InnerMessage.G2L_DisConnectGateUnit)]
+    public partial class G2L_DisConnectGateUnit : MessageObject, IResponse
     {
-        public static R2L_DisConnectGateUnit Create(bool isFromPool = false)
+        public static G2L_DisConnectGateUnit Create(bool isFromPool = false)
         {
-            return ObjectPool.Instance.Fetch(typeof(R2L_DisConnectGateUnit), isFromPool) as R2L_DisConnectGateUnit;
+            return ObjectPool.Instance.Fetch(typeof(G2L_DisConnectGateUnit), isFromPool) as G2L_DisConnectGateUnit;
         }
 
         [MemoryPackOrder(0)]
@@ -906,6 +906,140 @@ namespace ET
         public int Error { get; set; }
 
         [MemoryPackOrder(2)]
+        public string Message { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Error = default;
+            this.Message = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(InnerMessage.G2L_AddLoginRecord)]
+    [ResponseType(nameof(L2G_AddLoginRecord))]
+    public partial class G2L_AddLoginRecord : MessageObject, IRequest
+    {
+        public static G2L_AddLoginRecord Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(G2L_AddLoginRecord), isFromPool) as G2L_AddLoginRecord;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(0)]
+        public string Account { get; set; }
+
+        [MemoryPackOrder(1)]
+        public int ServerId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Account = default;
+            this.ServerId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(InnerMessage.L2G_AddLoginRecord)]
+    public partial class L2G_AddLoginRecord : MessageObject, IResponse
+    {
+        public static L2G_AddLoginRecord Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(L2G_AddLoginRecord), isFromPool) as L2G_AddLoginRecord;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(91)]
+        public string Message { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Error = default;
+            this.Message = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(InnerMessage.G2L_RemoveLoginRecord)]
+    [ResponseType(nameof(L2G_RemoveLoginRecord))]
+    public partial class G2L_RemoveLoginRecord : MessageObject, IRequest
+    {
+        public static G2L_RemoveLoginRecord Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(G2L_RemoveLoginRecord), isFromPool) as G2L_RemoveLoginRecord;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(0)]
+        public string Account { get; set; }
+
+        [MemoryPackOrder(1)]
+        public int ServerId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Account = default;
+            this.ServerId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(InnerMessage.L2G_RemoveLoginRecord)]
+    public partial class L2G_RemoveLoginRecord : MessageObject, IResponse
+    {
+        public static L2G_RemoveLoginRecord Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(L2G_RemoveLoginRecord), isFromPool) as L2G_RemoveLoginRecord;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(91)]
         public string Message { get; set; }
 
         public override void Dispose()
@@ -950,7 +1084,11 @@ namespace ET
         public const ushort M2M_UnitTransferResponse = 20024;
         public const ushort R2L_LoginAccountRequest = 20025;
         public const ushort L2R_LoginAccountRequest = 20026;
-        public const ushort L2R_DisConnectGateUnit = 20027;
-        public const ushort R2L_DisConnectGateUnit = 20028;
+        public const ushort L2G_DisConnectGateUnit = 20027;
+        public const ushort G2L_DisConnectGateUnit = 20028;
+        public const ushort G2L_AddLoginRecord = 20029;
+        public const ushort L2G_AddLoginRecord = 20030;
+        public const ushort G2L_RemoveLoginRecord = 20031;
+        public const ushort L2G_RemoveLoginRecord = 20032;
     }
 }

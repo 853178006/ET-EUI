@@ -98,11 +98,20 @@ namespace ET
             return ObjectPool.Instance.Fetch(typeof(Main2NetClient_EnterGame), isFromPool) as Main2NetClient_EnterGame;
         }
 
-        [MemoryPackOrder(0)]
+        [MemoryPackOrder(89)]
         public int RpcId { get; set; }
 
+        [MemoryPackOrder(0)]
+        public long RealmKey { get; set; }
+
         [MemoryPackOrder(1)]
-        public int OwnerFiberId { get; set; }
+        public string Account { get; set; }
+
+        [MemoryPackOrder(2)]
+        public long RoleId { get; set; }
+
+        [MemoryPackOrder(3)]
+        public string GateAddress { get; set; }
 
         public override void Dispose()
         {
@@ -112,7 +121,10 @@ namespace ET
             }
 
             this.RpcId = default;
-            this.OwnerFiberId = default;
+            this.RealmKey = default;
+            this.Account = default;
+            this.RoleId = default;
+            this.GateAddress = default;
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -136,6 +148,9 @@ namespace ET
         [MemoryPackOrder(2)]
         public string Message { get; set; }
 
+        [MemoryPackOrder(3)]
+        public long PlayerId { get; set; }
+
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -146,6 +161,7 @@ namespace ET
             this.RpcId = default;
             this.Error = default;
             this.Message = default;
+            this.PlayerId = default;
 
             ObjectPool.Instance.Recycle(this);
         }

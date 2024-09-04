@@ -190,16 +190,46 @@ message L2R_LoginAccountRequest // IResponse
 	string Message = 3;
 }
 
-// ResponseType R2L_DisConnectGateUnit
-message L2R_DisConnectGateUnit // IRequest
+// ResponseType G2L_DisConnectGateUnit
+message L2G_DisConnectGateUnit // IRequest
 {
 	int32 RpcId = 1;
 	string AccountName = 2;
 }
 
-message R2L_DisConnectGateUnit // IResponse
+message G2L_DisConnectGateUnit // IResponse
 {
 	int32 RpcId = 1;
 	int32 Error = 2;
 	string Message = 3;
+}
+
+// ResponseType L2G_AddLoginRecord
+message G2L_AddLoginRecord // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 1;
+	int32 ServerId = 2;
+}
+
+message L2G_AddLoginRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// ResponseType L2G_RemoveLoginRecord
+message G2L_RemoveLoginRecord // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 1;
+	int32 ServerId = 2;
+}
+
+message L2G_RemoveLoginRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
 }

@@ -87,15 +87,15 @@ namespace ET.Client
             }
 
             //请求游戏角色进入地图
-            NetClient2Main_EnterGame netClient2Main_EnterGame = NetClient2Main_EnterGame.Create();
+            NetClient2Main_EnterGame netClient2Main_EnterGame =
+                    await clientSenderComponent.EnterGameAsync(account, r2CGetRealmKey.Key, roleInfoProto.Id, r2CGetRealmKey.Address);
             if (netClient2Main_EnterGame.Error!=ErrorCode.ERR_Success)
             {
                 Log.Error($"进入游戏失败：{netClient2Main_EnterGame.Error}");
                 return;
             }
 
-
-
+            Log.Debug($"进入游戏成功！！！");
 
             await EventSystem.Instance.PublishAsync(root, new LoginFinish());
         }

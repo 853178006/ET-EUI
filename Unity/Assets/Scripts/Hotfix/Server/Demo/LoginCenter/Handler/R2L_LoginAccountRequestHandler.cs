@@ -18,9 +18,9 @@ namespace ET.Server
                 int zone = scene.GetComponent<LoginInfoRecordComponent>().Get(accountId);
                 StartSceneConfig gateConfig = RealmGateAddressHelper.GetGate(zone, request.AccountName);
 
-                L2R_DisConnectGateUnit l2RDisConnectGateUnit = L2R_DisConnectGateUnit.Create();
-                l2RDisConnectGateUnit.AccountName = request.AccountName;
-                var g2LDisconnectGateUnit = await scene.GetComponent<MessageSender>().Call(gateConfig.ActorId, l2RDisConnectGateUnit) as R2L_DisConnectGateUnit;
+                L2G_DisConnectGateUnit l2GDisConnectGateUnit = L2G_DisConnectGateUnit.Create();
+                l2GDisConnectGateUnit.AccountName = request.AccountName;
+                G2L_DisConnectGateUnit g2LDisconnectGateUnit = await scene.GetComponent<MessageSender>().Call(gateConfig.ActorId, l2GDisConnectGateUnit) as G2L_DisConnectGateUnit;
 
                 response.Error = g2LDisconnectGateUnit.Error;
             }
